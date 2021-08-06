@@ -1,13 +1,15 @@
-#include "Sprite.h"
 #include <SDL_image.h>
-#include "Game.h"
+#include "Sprite.h"
+#include "../../Game.h"
 
-Sprite::Sprite() 
-	: m_Texture(nullptr), m_ClipRect({0, 0, 0, 0}), m_Width(0), m_Height(0)
+Sprite::Sprite(GameObject& associated)
+	: m_Texture(nullptr), m_ClipRect({0, 0, 0, 0}), 
+		m_Width(0), m_Height(0), Component(associated)
 {
 }
 
-Sprite::Sprite(const char* file_path) : m_Texture(nullptr)
+Sprite::Sprite(GameObject& associated, const char* file_path)
+	: Sprite(associated)
 {
 	Open(file_path);
 }
@@ -37,6 +39,7 @@ void Sprite::Open(const char* file_path)
 	SDL_QueryTexture(m_Texture, nullptr, nullptr, &m_Width, &m_Height);
 
 	SetClip(0, 0, m_Width, m_Height);
+	m_Associated.m_Position = { 0, 0, m_Width, m_Height };
 }
 
 void Sprite::SetClip(int x, int y, int w, int h)
@@ -44,8 +47,8 @@ void Sprite::SetClip(int x, int y, int w, int h)
 	m_ClipRect = { x, y, w, h };
 }
 
-void Sprite::Render(int x, int y)
+void Sprite::Render()
 {
-	SDL_Rect dstrect = { x, y, m_ClipRect.w, m_ClipRect.h };
-	SDL_RenderCopy(Game::GetInstance().GetRenderer(), m_Texture, &m_ClipRect, &dstrect);
+	//SDL_Rect dstrect = { x, y, m_ClipRect.w, m_ClipRect.h };
+	SDL_RenderCopy(Game::GetInstance().GetRenderer(), m_Texture, &m_ClipRect, &m_Associated.m_Position);
 }

@@ -21,14 +21,23 @@
     <ClCompile Include="Music.cpp">
       <Filter>Arquivos de Recurso</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Arquivos de Recurso</Filter>
-    </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>Arquivos de Recurso</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Arquivos de Recurso</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Sound\Sound.cpp">
+      <Filter>Arquivos de Recurso</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Sprite\Sprite.cpp">
+      <Filter>Arquivos de Recurso</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Face\Face.cpp">
+      <Filter>Arquivos de Recurso</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -38,10 +47,22 @@
     <ClInclude Include="State.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
+    <ClInclude Include="Music.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="Music.h">
+    <ClInclude Include="GameObject.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Component.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Sound\Sound.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Sprite\Sprite.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Face\Face.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>
