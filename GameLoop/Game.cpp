@@ -100,7 +100,7 @@ Game& Game::GetInstance()
     // Singleton:
     // Instance only once if not already Instantiated
     if (s_Instance == nullptr) {
-        new Game("Game Screen", 1024, 600);
+        new Game("Antonio-160112745", 1024, 600);
     }
 
     return *s_Instance;
