@@ -39,7 +39,7 @@ void Sprite::Open(const char* file_path)
 	SDL_QueryTexture(m_Texture, nullptr, nullptr, &m_Width, &m_Height);
 
 	SetClip(0, 0, m_Width, m_Height);
-	m_Associated.m_Position = { 0, 0, m_Width, m_Height };
+	m_Associated.m_Position = { 0, 0, (float)m_Width, (float)m_Height };
 }
 
 void Sprite::SetClip(int x, int y, int w, int h)
@@ -49,6 +49,6 @@ void Sprite::SetClip(int x, int y, int w, int h)
 
 void Sprite::Render()
 {
-	//SDL_Rect dstrect = { x, y, m_ClipRect.w, m_ClipRect.h };
-	SDL_RenderCopy(Game::GetInstance().GetRenderer(), m_Texture, &m_ClipRect, &m_Associated.m_Position);
+	SDL_Rect dstrect = { (int)m_Associated.m_Position.x, (int)m_Associated.m_Position.y, m_ClipRect.w, m_ClipRect.h };
+	SDL_RenderCopy(Game::GetInstance().GetRenderer(), m_Texture, &m_ClipRect, &dstrect);
 }

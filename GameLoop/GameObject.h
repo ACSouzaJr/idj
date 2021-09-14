@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
 #include <SDL.h>
-#include "Components/Component.h"
+#include "Maths/Rect.h"
+
+class Component;
 
 // Interface for components logic
 // Every GO has an position (m_Position)
@@ -12,8 +14,7 @@ public:
 	GameObject();
 	~GameObject();
 
-
-	void AddComponent(Component *component);
+	void AddComponent(Component* component);
 	void RemoveComponent(Component* component);
 	Component* GetComponent(const char* type);
 	void Update(float dt);
@@ -22,10 +23,10 @@ public:
 	inline bool IsDead() const { return m_IsDead; };
 
 public:
-	SDL_Rect m_Position;
+	Rect m_Position;
 
 private:
-	std::vector<Component*> m_Components;
+	std::vector< std::unique_ptr<Component>> m_Components;
 	bool m_IsDead;
 };
 

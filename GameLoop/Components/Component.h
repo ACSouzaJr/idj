@@ -1,7 +1,7 @@
 #pragma once
-#include "../GameObject.h"
+#include "../GameObject.h"	
 
-// Used to add Game Logic
+// Add Game Logic
 class Component
 {
 public:

@@ -147,9 +147,11 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Maths\vec2.cpp" />
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="Components\Sound\Sound.cpp" />
     <ClCompile Include="Components\Sprite\Sprite.cpp" />
+    <ClCompile Include="Maths\rect.cpp" />
     <ClCompile Include="State.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,9 +159,11 @@
     <ClInclude Include="Components\Face\Face.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Maths\vec2.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="Components\Sound\Sound.h" />
     <ClInclude Include="Components\Sprite\Sprite.h" />
+    <ClInclude Include="Maths\rect.h" />
     <ClInclude Include="State.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

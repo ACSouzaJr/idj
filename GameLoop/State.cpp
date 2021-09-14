@@ -1,11 +1,17 @@
+#include <math.h>
 #include "State.h"
 #include "Components/Sound/Sound.h"
 #include "Components/Face/Face.h"
+#include "Maths/vec2.h"
 
 State::State() 
-	: m_QuitRequested(false), m_Background(Sprite("assets/img/ocean.jpg")), 
-		m_Music(Music("assets/audio/stageState.ogg"))
+	: m_QuitRequested(false), m_Music(Music("assets/audio/stageState.ogg"))
 {
+	// m_Background(Sprite("assets/img/ocean.jpg"))
+	GameObject* go = new GameObject();
+	go->AddComponent(new Sprite(*go, "assets/img/ocean.jpg"));
+	m_ObjectArray.emplace_back(go);
+
 	m_Music.Play();
 }
 
@@ -27,7 +33,10 @@ void State::Update(float dt)
 	{
 		// Update Object
 		m_ObjectArray[i]->Update(dt);
+	}
 
+	for (size_t i = 0; i < m_ObjectArray.size(); i++)
+	{
 		// If dead remove from array
 		if (m_ObjectArray[i]->IsDead())
 		{
@@ -94,18 +103,24 @@ void State::Input()
 			}
 			// Se não, crie um objeto
 			else {
-				Vec2 objPos = Vec2(200, 0).GetRotated(-PI + PI * (rand() % 1001) / 500.0) + Vec2(mouseX, mouseY);
+				Vec2 objPos = Vec2(200, 0).GetRotated(-M_PI + M_PI * (rand() % 1001) / 500.0) + Vec2(mouseX, mouseY);
 				AddObject((int)objPos.x, (int)objPos.y);
 			}
 		}
 	}
 }
 
-void State::AddObject(int mouseX, int MouseY)
+void State::AddObject(int mouseX, int mouseY)
 {
 	GameObject* object = new GameObject();
 
 	object->AddComponent(new Sprite(*object, "assets/img/penguinface.png"));
+
+	auto w = object->m_Position.w;
+	auto h = object->m_Position.h;
+
+	object->m_Position = { mouseX + w / 2, mouseY + h / 2, w, h };
+
 	object->AddComponent(new Sound(*object, "assets/audio/boom.wav"));
 	object->AddComponent(new Face(*object));
 
