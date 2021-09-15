@@ -26,7 +26,7 @@ public:
 	Rect m_Position;
 
 private:
-	std::vector< std::unique_ptr<Component>> m_Components;
+	std::vector<std::unique_ptr<Component>> m_Components;
 	bool m_IsDead;
 };
 
