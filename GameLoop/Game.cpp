@@ -1,6 +1,7 @@
-#include "Game.h"
 #include <SDL_image.h>
 #include <SDL_mixer.h>
+#include "Game.h"
+#include "Resources.h"
 
 Game* Game::s_Instance = nullptr;
 
@@ -121,4 +122,8 @@ void Game::Run()
         SDL_RenderPresent(m_Renderer);
         SDL_Delay(33);
     }
+    // Clean Memory
+    Resources::ClearImages();
+    Resources::ClearMusics();
+    Resources::ClearSounds();
 }

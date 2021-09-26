@@ -13,6 +13,7 @@ public:
 	void Open(const char* file_path);
 	void SetClip(int x, int y, int w, int h);
 	void Render() override;
+	void Render(float x, float y);
 	void Update(float dt) override {};
 
 	inline bool IsType(const char* type) const { return type == "Sprite"; };

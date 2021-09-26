@@ -2,7 +2,7 @@
 #include "../Sound/Sound.h"
 
 Face::Face(GameObject& associated)
-	: Component(associated), m_Hitpoints(50)
+	: Component(associated), m_Hitpoints(30)
 {
 }
 
