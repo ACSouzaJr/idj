@@ -152,7 +152,10 @@
     <ClCompile Include="Components\Sound\Sound.cpp" />
     <ClCompile Include="Components\Sprite\Sprite.cpp" />
     <ClCompile Include="Maths\rect.cpp" />
+    <ClCompile Include="Resources.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="Components\TileMap\TileMap.cpp" />
+    <ClCompile Include="TileSet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Component.h" />
@@ -164,7 +167,10 @@
     <ClInclude Include="Components\Sound\Sound.h" />
     <ClInclude Include="Components\Sprite\Sprite.h" />
     <ClInclude Include="Maths\rect.h" />
+    <ClInclude Include="Resources.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="Components\TileMap\TileMap.h" />
+    <ClInclude Include="TileSet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

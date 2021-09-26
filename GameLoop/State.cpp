@@ -2,17 +2,15 @@
 #include "State.h"
 #include "Components/Sound/Sound.h"
 #include "Components/Face/Face.h"
+#include "Components/TileMap/TileMap.h"
 #include "Maths/vec2.h"
+#include "TileSet.h"
 
 State::State() 
 	: m_QuitRequested(false), m_Music(Music("assets/audio/stageState.ogg"))
 {
-	// m_Background(Sprite("assets/img/ocean.jpg"))
-	GameObject* go = new GameObject();
-	go->AddComponent(new Sprite(*go, "assets/img/ocean.jpg"));
-	m_ObjectArray.emplace_back(go);
-
 	m_Music.Play();
+	LoadAssets();
 }
 
 State::~State()
@@ -23,6 +21,18 @@ State::~State()
 void State::LoadAssets()
 {
 	// Pre-load Assets
+
+	// Load Background
+	GameObject* background = new GameObject();
+	background->AddComponent(new Sprite(*background, "assets/img/ocean.jpg"));
+	m_ObjectArray.emplace_back(background);
+
+	// Load Tiles
+	GameObject* mapping = new GameObject();
+	TileSet* tileSet = new TileSet(64, 64, "assets/img/tileset.png");
+	TileMap* tileMap = new TileMap(*mapping, "assets/map/tileMap.txt", tileSet);
+	mapping->AddComponent(tileMap);
+	m_ObjectArray.emplace_back(mapping);
 }
 
 void State::Update(float dt)

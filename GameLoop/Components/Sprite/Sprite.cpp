@@ -1,5 +1,6 @@
 #include <SDL_image.h>
 #include "Sprite.h"
+#include "../../Resources.h"
 #include "../../Game.h"
 
 Sprite::Sprite(GameObject& associated)
@@ -16,24 +17,12 @@ Sprite::Sprite(GameObject& associated, const char* file_path)
 
 Sprite::~Sprite()
 {
-	SDL_DestroyTexture(m_Texture);
 }
 
 void Sprite::Open(const char* file_path)
 {
-	// Load image on file path
-	// Before loading verify if an texture is already loaded
-	if (IsOpen()) {
-		SDL_DestroyTexture(m_Texture);
-	}
-
-	// Load Texture
-	m_Texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file_path);
-	if (m_Texture == nullptr) {
-		SDL_Log("IMG_Load: %s\n", IMG_GetError());
-		// handle error
-		return;
-	}
+	// Get image from resources
+	m_Texture = Resources::GetImage(file_path);
 
 	// Query texture size
 	SDL_QueryTexture(m_Texture, nullptr, nullptr, &m_Width, &m_Height);
@@ -50,5 +39,11 @@ void Sprite::SetClip(int x, int y, int w, int h)
 void Sprite::Render()
 {
 	SDL_Rect dstrect = { (int)m_Associated.m_Position.x, (int)m_Associated.m_Position.y, m_ClipRect.w, m_ClipRect.h };
+	SDL_RenderCopy(Game::GetInstance().GetRenderer(), m_Texture, &m_ClipRect, &dstrect);
+}
+
+void Sprite::Render(float x, float y)
+{
+	SDL_Rect dstrect = { (int)x, (int)y, m_ClipRect.w, m_ClipRect.h };
 	SDL_RenderCopy(Game::GetInstance().GetRenderer(), m_Texture, &m_ClipRect, &dstrect);
 }
