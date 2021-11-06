@@ -79,8 +79,8 @@ void TileMap::RenderLayer(int layer, int cameraX, int cameraY)
 		for (size_t x = 0; x < m_Width; x++)
 		{
 			// Consider tile size and camera displacement to place tile
-			int xPos = x * m_TileSet->GetTileWidth() + cameraX;
-			int yPos = y * m_TileSet->GetTileHeight() + cameraY;
+			int xPos = x * m_TileSet->GetTileWidth() - cameraX;
+			int yPos = y * m_TileSet->GetTileHeight() - cameraY;
 			int index = At(x, y, layer);
 
 			// Tile is empty if index = -1

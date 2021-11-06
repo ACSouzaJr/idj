@@ -143,9 +143,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Components\CameraFollower\CameraFollower.cpp" />
     <ClCompile Include="Components\Face\Face.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Maths\vec2.cpp" />
     <ClCompile Include="Music.cpp" />
@@ -158,10 +161,13 @@
     <ClCompile Include="TileSet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Components\CameraFollower\CameraFollower.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\Face\Face.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Maths\vec2.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="Components\Sound\Sound.h" />

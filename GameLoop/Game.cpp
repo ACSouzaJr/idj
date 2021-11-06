@@ -2,11 +2,13 @@
 #include <SDL_mixer.h>
 #include "Game.h"
 #include "Resources.h"
+#include "InputManager.h"
 
 Game* Game::s_Instance = nullptr;
 
 Game::Game(const char* title, int width, int height) 
-    :  m_Window(nullptr), m_Renderer(nullptr), m_State(nullptr)
+    :  m_Window(nullptr), m_Renderer(nullptr), m_State(nullptr),
+        dt(0), m_FrameStart(0)
 {
 
     if (s_Instance != nullptr) {
@@ -77,6 +79,13 @@ Game::Game(const char* title, int width, int height)
     m_State = new State();
 }
 
+void Game::CalculateDeltaTime()
+{
+    float ticks = SDL_GetTicks();
+    dt = (ticks - m_FrameStart) / 1000.0f;
+    m_FrameStart = ticks;
+}
+
 Game::~Game()
 {
     delete m_State;
@@ -111,10 +120,12 @@ void Game::Run()
 {
     while (!m_State->QuitRequested())
     {
+        CalculateDeltaTime();
         // Load State (screen)
         // Read inputs
+        InputManager::GetInstance().Update();
         // Update State
-        m_State->Update(0);
+        m_State->Update(dt);
         // Draw State
         m_State->Render();
 
