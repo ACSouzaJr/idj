@@ -9,7 +9,7 @@ public:
 	void Damage(int damage);
 
 	void Render() override {};
-	void Update(float dt) override {};
+	void Update(float dt) override;
 	inline bool IsType(const char* type) const override { return type == "Face"; };
 
 private:

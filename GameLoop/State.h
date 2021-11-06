@@ -15,7 +15,7 @@ public:
 	void LoadAssets();
 	void Update(float dt);
 	void Render();
-	void Input();
+	void Interaction();
 	void AddObject(int mouseX, int mouseY);
 	bool QuitRequested() const { return m_QuitRequested; }
 

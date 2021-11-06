@@ -5,6 +5,8 @@
 #include "Components/TileMap/TileMap.h"
 #include "Maths/vec2.h"
 #include "TileSet.h"
+#include "InputManager.h"
+#include "Camera.h"
 
 State::State() 
 	: m_QuitRequested(false), m_Music(Music("assets/audio/stageState.ogg"))
@@ -37,7 +39,16 @@ void State::LoadAssets()
 
 void State::Update(float dt)
 {
-	Input();
+	if (InputManager::GetInstance().QuitRequested()) {
+		m_QuitRequested = true;
+	}
+
+	Camera::Update(dt);
+
+	//printf("CAM POS: %f %f \n", Camera::m_Pos.x, Camera::m_Pos.y);
+
+
+	Interaction();
 
 	for (size_t i = 0; i < m_ObjectArray.size(); i++)
 	{
@@ -61,62 +72,26 @@ void State::Render()
 	for (size_t i = 0; i < m_ObjectArray.size(); i++)
 	{
 		m_ObjectArray[i]->Render();
+
+		if (m_ObjectArray[i]->GetComponent("TileMap"))
+		{
+			TileMap* tileMap = (TileMap*)m_ObjectArray[i].get();
+			tileMap->RenderLayer(1, Camera::m_Pos.x, Camera::m_Pos.y);
+		}
 	}
 }
 
-void State::Input()
+void State::Interaction()
 {
-	SDL_Event event;
-	int mouseX, mouseY;
+	if (InputManager::GetInstance().KeyPress(SPACE_KEY))
+	{
+		int mouseX, mouseY;
 
-	// Obtenha as coordenadas do mouse
-	SDL_GetMouseState(&mouseX, &mouseY);
+		mouseX = InputManager::GetInstance().GetMouseX();
+		mouseY = InputManager::GetInstance().GetMouseY();
 
-	// SDL_PollEvent retorna 1 se encontrar eventos, zero caso contrário
-	while (SDL_PollEvent(&event)) {
-
-		// Se o evento for quit, setar a flag para terminação
-		if (event.type == SDL_QUIT) {
-			m_QuitRequested = true;
-		}
-
-		// Se o evento for clique...
-		if (event.type == SDL_MOUSEBUTTONDOWN) {
-
-			// Percorrer de trás pra frente pra sempre clicar no objeto mais de cima
-			for (int i = m_ObjectArray.size() - 1; i >= 0; --i) {
-				// Obtem o ponteiro e casta pra Face.
-				GameObject* go = (GameObject*) m_ObjectArray[i].get();
-				// Nota: Desencapsular o ponteiro é algo que devemos evitar ao máximo.
-				// O propósito do unique_ptr é manter apenas uma cópia daquele ponteiro,
-				// ao usar get(), violamos esse princípio e estamos menos seguros.
-				// Esse código, assim como a classe Face, é provisório. Futuramente, para
-				// chamar funções de GameObjects, use objectArray[i]->função() direto.
-
-				if (go->m_Position.Contains({ (float)mouseX, (float)mouseY })) {
-					Face* face = (Face*) go->GetComponent("Face");
-
-					if (face != nullptr) {
-						// Aplica dano
-						face->Damage(std::rand() % 10 + 10);
-						// Sai do loop (só queremos acertar um)
-						break;
-					}
-				}
-			}
-		}
-
-		if (event.type == SDL_KEYDOWN) {
-			// Se a tecla for ESC, setar a flag de quit
-			if (event.key.keysym.sym == SDLK_ESCAPE) {
-				m_QuitRequested = true;
-			}
-			// Se não, crie um objeto
-			else {
-				Vec2 objPos = Vec2(200, 0).GetRotated(-M_PI + M_PI * (rand() % 1001) / 500.0) + Vec2(mouseX, mouseY);
-				AddObject((int)objPos.x, (int)objPos.y);
-			}
-		}
+		Vec2 objPos = Vec2(200, 0).GetRotated(-M_PI + M_PI * (rand() % 1001) / 500.0) + Vec2(mouseX, mouseY);
+		AddObject((int)objPos.x, (int)objPos.y);
 	}
 }
 
