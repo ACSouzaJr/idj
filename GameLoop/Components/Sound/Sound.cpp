@@ -17,7 +17,7 @@ Sound::~Sound()
 {
 	if (IsOpen()) {
 		// Wait for sound to play
-		while (Mix_Playing(m_Channel) != 0) SDL_Delay(200); // Wait 200 ms
+		// while (Mix_Playing(m_Channel) != 0) SDL_Delay(200); // Wait 200 ms
 		Stop();		
 	}
 }

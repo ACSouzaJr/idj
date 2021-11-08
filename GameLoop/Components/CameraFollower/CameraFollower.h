@@ -1,12 +1,12 @@
 #pragma once
 #include "../Component.h"
 
-class CameraFollower : Component
+class CameraFollower : public Component
 {
 public:
 	CameraFollower(GameObject& go);
-	void Update(float dt);
-	void Render() {}
-	bool Is(const char* type) const { return type == "CameraFollower"; };
+	void Update(float dt) override;
+	void Render() override {}
+	bool IsType(const char* type) const override { return type == "CameraFollower"; };
 };
 
