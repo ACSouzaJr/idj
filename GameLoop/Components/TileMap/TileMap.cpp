@@ -1,6 +1,7 @@
-#include "TileMap.h"
 #include <fstream>
 #include <string>
+#include "TileMap.h"
+#include "../../Camera.h"
 
 TileMap::TileMap(GameObject& associated, const char* file_path, TileSet *tileSet)
 	: Component(associated), m_TileSet(tileSet)
@@ -79,8 +80,8 @@ void TileMap::RenderLayer(int layer, int cameraX, int cameraY)
 		for (size_t x = 0; x < m_Width; x++)
 		{
 			// Consider tile size and camera displacement to place tile
-			int xPos = x * m_TileSet->GetTileWidth() - cameraX;
-			int yPos = y * m_TileSet->GetTileHeight() - cameraY;
+			int xPos = x * m_TileSet->GetTileWidth() + cameraX;
+			int yPos = y * m_TileSet->GetTileHeight() + cameraY;
 			int index = At(x, y, layer);
 
 			// Tile is empty if index = -1
@@ -96,6 +97,6 @@ void TileMap::Render()
 {
 	for (size_t z = 0; z < m_Depth; z++)
 	{
-		RenderLayer(z);
+		RenderLayer(z, Camera::m_Pos.x, Camera::m_Pos.y);
 	}
 }

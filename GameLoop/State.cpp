@@ -3,6 +3,7 @@
 #include "Components/Sound/Sound.h"
 #include "Components/Face/Face.h"
 #include "Components/TileMap/TileMap.h"
+#include "Components/CameraFollower/CameraFollower.h"
 #include "Maths/vec2.h"
 #include "TileSet.h"
 #include "InputManager.h"
@@ -27,6 +28,7 @@ void State::LoadAssets()
 	// Load Background
 	GameObject* background = new GameObject();
 	background->AddComponent(new Sprite(*background, "assets/img/ocean.jpg"));
+	background->AddComponent(new CameraFollower(*background));
 	m_ObjectArray.emplace_back(background);
 
 	// Load Tiles
@@ -61,7 +63,9 @@ void State::Update(float dt)
 		// If dead remove from array
 		if (m_ObjectArray[i]->IsDead())
 		{
-			m_ObjectArray.erase(m_ObjectArray.begin() + i);
+			Sound* sound = (Sound*)m_ObjectArray[i]->GetComponent("Sound");
+			if((sound && !sound->IsPlaying()) || !sound)
+				m_ObjectArray.erase(m_ObjectArray.begin() + i);
 		}
 	}
 
@@ -72,12 +76,6 @@ void State::Render()
 	for (size_t i = 0; i < m_ObjectArray.size(); i++)
 	{
 		m_ObjectArray[i]->Render();
-
-		if (m_ObjectArray[i]->GetComponent("TileMap"))
-		{
-			TileMap* tileMap = (TileMap*)m_ObjectArray[i].get();
-			tileMap->RenderLayer(1, Camera::m_Pos.x, Camera::m_Pos.y);
-		}
 	}
 }
 

@@ -13,6 +13,7 @@ public:
 	void Play(int times = 1);
 	void Stop();
 	inline bool IsOpen() const { return m_Chunk != nullptr; }
+	inline bool IsPlaying() const { return Mix_Playing(m_Channel); }
 
 	void Render() override {};
 	void Update(float dt) override {};

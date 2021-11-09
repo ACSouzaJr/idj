@@ -20,7 +20,10 @@ void Camera::Update(float dt)
 	if (m_Focus)
 	{
 		// Stay centralized on screen
-		m_Pos = Vec2(1024/2, 600/2);
+		 int xCenter = (m_Focus->m_Position.x + m_Focus->m_Position.w) / 2;
+		 int yCenter = (m_Focus->m_Position.y + m_Focus->m_Position.h) / 2;
+
+		 m_Pos = Vec2(xCenter, yCenter);
 	}
 	else 
 	{
